@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="firstName"> First Name:</label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <br/>
+    <label for="lastname"> Last Name:</label>
+    <input type="text" th:field="*{lastName}" id="lastname"/>
+    <br/>
+    <label for="email"> Email:</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br/>
+    <label for="age"> Age:</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+    <label for="password"> Password:</label>
+    <input type="password" th:field="*{password}" id="password"/>
+    <br/>
+    <h>Set access rights:</h>
+    <br/>
+    <label th:for="confirm1">ADMIN</label>
+    <input type="checkbox" name="confirm1" th:value="confirm1"/>
+    <br/>
+    <label th:for="confirm2">USER</label>
+    <input type="checkbox" name="confirm2" th:value="confirm2"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+<br/>
+<div class="container">
+    <form class="form-signin" method="get" action="/logout">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log out</button>
+    </form>
+</div>
+
+</body>
+</html>
