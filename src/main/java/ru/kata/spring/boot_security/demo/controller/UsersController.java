@@ -22,7 +22,7 @@ public class UsersController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,Model model){
         model.addAttribute("user", userServiceImpl.show(id));
-        return "show";
+        return "user";
     }
 
 }

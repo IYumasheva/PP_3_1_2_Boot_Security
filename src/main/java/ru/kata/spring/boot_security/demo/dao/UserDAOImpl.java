@@ -43,6 +43,10 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     public void update(User updatedUser){
+//        if (updatedUser.getPassword().equals(em.find(User.class, updatedUser.getId()).getPassword()) ) {
+//        } else {
+//            updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+//        }
         em.merge(updatedUser);
     }
 

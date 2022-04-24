@@ -104,6 +104,10 @@ public class User implements Serializable, UserDetails {
         this.password = password;
     }
 
+    public boolean hasRole (Role role) {
+        return roles.contains(role);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

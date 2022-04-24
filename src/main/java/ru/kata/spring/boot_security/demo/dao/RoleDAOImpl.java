@@ -6,6 +6,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class RoleDAOImpl implements RoleDAO {
@@ -32,5 +33,9 @@ public class RoleDAOImpl implements RoleDAO {
         TypedQuery<Role> query = em.createQuery("from Role role where role.name =: role", Role.class);
         query.setParameter("role", role);
         return query.getSingleResult();
+    }
+    @Override
+    public List<Role> getAll() {
+        return em.createQuery("FROM Role", Role.class).getResultList();
     }
 }
