@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-9 p-2" >
             <h5 class="font-weight-normal"> <span th:text="${user.getEmail()}" class="font-weight-bold" ></span> with roles:
-                <span th:each="role : ${user.getRoles()}" th:text="${role.getName()}"></span> </h5>
+                <span th:each="role : ${user.getRoles()}" th:text="${role.getName()} + ' ' "></span> </h5>
         </div>
         <div class="col-3">
             <form class="form-signin" method="get" action="/logout">
@@ -88,7 +88,11 @@
                                                 <td th:text="${user.getLastName()}">
                                                 <td th:text="${user.getAge()}">
                                                 <td th:text="${user.getEmail()}">
-                                                <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}">
+                                                <td>
+                                                    <div th:each="role : ${user.getRoles()}">
+                                                        <div th:utext="${role.getName()}"></div>
+                                                </div>
+                                                </td>
                                                 <td class="py-1 px-1">
                                                 <button type="button" class="btn btn-info" data-toggle="modal"
                                                         th:data-target="${'#ed' + user.id}">Edit
