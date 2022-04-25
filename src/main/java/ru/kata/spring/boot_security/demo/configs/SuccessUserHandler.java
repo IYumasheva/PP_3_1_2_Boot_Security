@@ -28,13 +28,11 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        String email = authentication.getName();
-        User user =  userServiceImpl.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(""));
 
         if (roles.contains("ADMIN")) {
             httpServletResponse.sendRedirect("/admin");
         } else {
-            httpServletResponse.sendRedirect("/user/" + user.getId());
+            httpServletResponse.sendRedirect("/user");
         }
     }
 }

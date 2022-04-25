@@ -12,7 +12,7 @@
 
     <title>User page</title>
 </head>
-<body style="" class="bg-light">
+<body style="" class="bg-light" >
 
 <div class="container-fluid bg-dark text-light ">
     <div class="row">
@@ -40,7 +40,7 @@
                             </li>
                             <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'ADMIN' )">
                                 <a class="nav-link placeholder active ms-0 me-0 w-100 text start"
-                                   th:href="@{/user/{id}(id=${user.getId()})}">User</a>
+                                   th:href="@{/user}">User</a>
                             </li>
                         </ul>
                     </div>

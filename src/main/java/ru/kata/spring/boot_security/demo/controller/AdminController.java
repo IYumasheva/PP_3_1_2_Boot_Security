@@ -39,6 +39,7 @@ public class AdminController {
                          @ModelAttribute("newUser") User user) {
         setRole(roles, user);
         userServiceImpl.save(user);
+        System.out.println("Это пост запрос");
         return "redirect:/admin";
     }
 

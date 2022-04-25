@@ -42,7 +42,7 @@
                             </li>
                             <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'ADMIN' )">
                                 <a class="nav-link placeholder ms-0 me-0 w-100 text start"
-                                   th:href="@{/user/{id}(id=${user.getId()})}">User</a>
+                                   th:href="@{/user}">User</a>
                             </li>
                         </ul>
                     </div>
