@@ -29,12 +29,10 @@ public class SpringBootSecurityDemoApplication {
 		roleServiceImpl.save(role1);
 		roleServiceImpl.save(role2);
 
-		User admin = new User("Admin", "Admin","25", "admin@mail.ru", "password");
-		admin.setRoles(List.of(role1));
+		User admin = new User("Admin", "Admin",25, "admin@mail.ru", "password", List.of(role1));
 		userServiceImpl.save(admin);
 
-		User user = new User("User", "User","25", "user@mail.ru", "password");
-		user.setRoles(List.of(role2));
+		User user = new User("User", "User",225, "user@mail.ru", "password", List.of(role2));
 		userServiceImpl.save(user);
 
 	}

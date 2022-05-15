@@ -26,14 +26,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> index() {
-        return userDaoImpl.index();
+    public List<User> getAllUsers() {
+        return userDaoImpl.getAllUsers();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User show(int id){
-        return userDaoImpl.show(id);
+    public User getUser(int id){
+        return userDaoImpl.getUser(id);
     }
 
     @Override
@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Optional<User> findByEmail(String email) {
         return userDaoImpl.findByEmail(email);
     }
-
 
 
     @Override

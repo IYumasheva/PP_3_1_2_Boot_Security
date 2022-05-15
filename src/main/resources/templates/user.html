@@ -58,7 +58,7 @@
                                 <div class="tab-content mt-0">
                                     <div class="tab-pane fade active show" id="tabone" role="tabpanel">
                                         <div class="table-responsive p-4">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped" id = "info">
                                                 <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
@@ -69,20 +69,7 @@
                                                     <th scope="col">Role</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody style="">
-                                                <tr>
-                                                    <td th:text="${user.getId()}">
-                                                    <td th:text="${user.getFirstName()}">
-                                                    <td th:text="${user.getLastName()}">
-                                                    <td th:text="${user.getAge()}">
-                                                    <td th:text="${user.getEmail()}">
-                                                    <td>
-                                                        <div th:each="role : ${user.getRoles()}">
-                                                            <div th:utext="${role.getName()}"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
+                                                <tbody></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -95,7 +82,40 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    let url = 'http://localhost:8081/api/users/current_user'
+    let info = document.querySelector('#info tbody')
 
+    function table (currentUser) {
+        info.innerHTML = `
+                    <tr>
+                        <td>${currentUser.id}</td>
+                        <td>${currentUser.firstName}</td>
+                        <td>${currentUser.lastName}</td>
+                        <td>${currentUser.age}</td>
+                        <td>${currentUser.email}</td>
+                        <td>
+                            <div>
+                                ${currentUser.roles.map(role => role.name).join(" ")}
+                            </div>
+                        </td>
+                    </tr>
+               `;
+    }
+
+    fetch(url)
+        .then(response => response.json())
+        .then(o => table(o))
+</script>
 </body>
 </html>
 

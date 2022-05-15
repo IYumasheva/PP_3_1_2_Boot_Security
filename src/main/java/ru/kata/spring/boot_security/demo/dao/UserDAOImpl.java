@@ -24,13 +24,13 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public List<User> index() {
+    public List<User> getAllUsers() {
         TypedQuery<User> query = em.createQuery("from User", User.class);
         return query.getResultList();
     }
 
     @Override
-    public User show(int id) {
+    public User getUser(int id) {
         User user = em.find(User.class, id);
         return user;
     }
@@ -43,10 +43,10 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     public void update(User updatedUser){
-//        if (updatedUser.getPassword().equals(em.find(User.class, updatedUser.getId()).getPassword()) ) {
-//        } else {
-//            updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-//        }
+        if (updatedUser.getPassword().equals(em.find(User.class, updatedUser.getId()).getPassword()) ) {
+        } else {
+            updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
         em.merge(updatedUser);
     }
 

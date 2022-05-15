@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    List<User> index();
+    List<User> getAllUsers();
 
-    User show(int id);
+    User getUser(int id);
 
     void save(User user);
 

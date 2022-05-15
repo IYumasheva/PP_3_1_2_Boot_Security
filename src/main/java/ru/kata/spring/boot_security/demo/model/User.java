@@ -26,7 +26,7 @@ public class User implements Serializable, UserDetails {
     private String lastName;
 
     @Column
-    private String age;
+    private int age;
 
     @Column(unique = true)
     private String email;
@@ -34,22 +34,22 @@ public class User implements Serializable, UserDetails {
     @Column
     private String password;
 
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(
-            name="user_role",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "users_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String age, String email, String password) {
+    public User(String firstName, String lastName, int age, String email, String password, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -76,11 +76,11 @@ public class User implements Serializable, UserDetails {
         this.lastName = lastName;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -110,7 +110,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
