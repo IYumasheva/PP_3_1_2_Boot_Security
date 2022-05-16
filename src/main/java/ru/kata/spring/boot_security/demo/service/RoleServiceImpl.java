@@ -31,6 +31,8 @@ public class RoleServiceImpl implements RoleService{
     public Role show(String role){
         return roleDaoImpl.show(role);
     }
+
+    @Override
     public List<Role> getAll() {
         return roleDaoImpl.getAll();
     }

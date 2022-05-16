@@ -41,7 +41,8 @@ public class MyRestController {
     public User addNewUser(@RequestBody User user) {
         setRole(user);
         userServiceImpl.save(user);
-        return user;
+        User newUser = userServiceImpl.findByEmail(user.getEmail()).orElseThrow(() -> new UsernameNotFoundException(""));
+        return newUser;
     }
 
     @PatchMapping("/users/{id}")
@@ -65,7 +66,7 @@ public class MyRestController {
     private void setRole(User user) {
         List<Role> list = new ArrayList<>();
         for (Role role : user.getRoles()) {
-            list.add(role);
+            list.add(roleServiceImpl.show(role.getName()));
         }
         user.setRoles(list);
     }
