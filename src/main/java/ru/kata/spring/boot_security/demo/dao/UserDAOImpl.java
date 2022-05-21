@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -16,23 +15,24 @@ public class UserDAOImpl implements UserDAO{
 
     @PersistenceContext
     private final EntityManager em;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserDAOImpl(EntityManager em) {
+    public UserDAOImpl(EntityManager em, PasswordEncoder passwordEncoder) {
         this.em = em;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> query = em.createQuery("from User", User.class);
-        return query.getResultList();
+        return em.createQuery("from User", User.class).getResultList();
     }
 
     @Override
     public User getUser(int id) {
-        User user = em.find(User.class, id);
-        return user;
+        TypedQuery<User> query = em.createQuery("from User user join fetch user.roles where user.id =:id", User.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+
     }
 
     @Override
@@ -52,13 +52,12 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     public void delete(int id) {
-        User user = em.find(User.class, id);
-        em.remove(user);
+        em.remove(em.find(User.class, id));
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        TypedQuery<User> query = em.createQuery("from User user where user.email =: email", User.class);
+        TypedQuery<User> query = em.createQuery("from User user join fetch user.roles  where user.email =: email", User.class);
         query.setParameter("email", email);
         return Optional.ofNullable(query.getSingleResult());
     }

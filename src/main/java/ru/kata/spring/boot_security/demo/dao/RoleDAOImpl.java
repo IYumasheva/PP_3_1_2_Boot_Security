@@ -34,6 +34,14 @@ public class RoleDAOImpl implements RoleDAO {
         query.setParameter("role", role);
         return query.getSingleResult();
     }
+
+    @Override
+    public Role show(int id) {
+        TypedQuery<Role> query = em.createQuery("from Role role where role.id =: id", Role.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
+
     @Override
     public List<Role> getAll() {
         return em.createQuery("FROM Role", Role.class).getResultList();

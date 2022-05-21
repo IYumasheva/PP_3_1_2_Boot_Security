@@ -38,7 +38,7 @@
                             <a class="nav-link active placeholder text start"
                                    th:href="@{/admin}">Admin</a>
                             </li>
-                            <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                            <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'ADMIN' )">
                                 <a class="nav-link placeholder ms-0 me-0 w-100 text start"
                                    th:href="@{/user}">User</a>
                             </li>
@@ -104,8 +104,8 @@
                                                                     <div class="form-group">
                                                                         <label>Role</label>
                                                                         <select multiple="multiple" class="form-control-md d-flex flex-column justify-content-center align-items-center p-1" id="editRoles" size="2">
-                                                                            <option>ADMIN</option>
-                                                                            <option>USER</option>
+                                                                            <option value="1" name="ADMIN">ADMIN</option>
+                                                                            <option value="2" name="USER">USER</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -176,8 +176,8 @@
                                     <div class="form-group w-50">
                                         <label>Role</label>
                                         <select multiple="multiple" class="form-control-md d-flex flex-column justify-content-center align-items-center p-1 w-100" id="addRoles" size="2">
-                                            <option>ADMIN</option>
-                                            <option>USER</option>
+                                            <option value="1">ADMIN</option>
+                                            <option value="2">USER</option>
                                         </select>
                                     </div>
                                     <button class="btn btn-primary" id="addButton" >Add new user</button>

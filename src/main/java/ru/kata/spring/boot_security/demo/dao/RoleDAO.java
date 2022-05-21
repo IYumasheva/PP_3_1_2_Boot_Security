@@ -8,5 +8,6 @@ public interface RoleDAO {
     void save(Role role);
     void delete(int id);
     Role show(String role);
+    Role show(int id);
     List<Role> getAll();
 }

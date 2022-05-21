@@ -67,16 +67,32 @@ function deleteAction (id) {
 }
 
 function editUserForm(id){
-    let roles = $('#roles' + id).text().trim().split(" ")
 
     $('#editId').val(id)
     $('#editFirstName').val($('#firstName' + id).text())
     $('#editLastName').val($('#lastName' + id).text())
     $('#editAge').val($('#age' + id).text())
     $('#editEmail').val($('#email' + id).text())
-    $('#editRoles').val(roles)
+
+    let roles = $('#roles' + id).text().trim().split(" ");
+    let userRoles =[]
+    roles.forEach(role => {
+        userRoles[userRoles.length] = role === "ADMIN" ? 1 : 2
+    })
+
+    $('#editRoles').val(userRoles)
 
     $('#editButton').on('click', function () {
+        let roles = $('#editRoles').val();
+        let userRoles = []
+
+        roles.forEach(roleId => {
+            userRoles.push({
+                id: roleId,
+                name : roleId == 1 ? "ADMIN" : "USER"
+            })
+        })
+
         let user = {
             id: $('#editId').val().trim(),
             firstName: $('#editFirstName').val().trim(),
@@ -84,8 +100,10 @@ function editUserForm(id){
             age: $('#editAge').val().trim(),
             email: $('#editEmail').val().trim(),
             password: $('#editPassword').val(),
-            roles: $('#editRoles').val()
+            roles: userRoles
         }
+
+        console.log(user)
 
         fetch(url + id, {
             method: 'PATCH',
@@ -106,13 +124,23 @@ function editUserForm(id){
 addForm.addEventListener('submit', (evt) => {
     evt.preventDefault()
 
+    let roles = $('#addRoles').val();
+    let userRoles = []
+
+    roles.forEach(roleId => {
+        userRoles.push({
+            id: roleId,
+            name : roleId == 1 ? "ADMIN" : "USER"
+        })
+    })
+
     let newUserData = {
         firstName: $('#addFirstName').val().trim(),
         lastName: $('#addLastName').val().trim(),
         age: $('#addAge').val().trim(),
         email: $('#addEmail').val().trim(),
         password: $('#addPassword').val().trim(),
-        roles: $('#addRoles').val()
+        roles: userRoles
     }
 
     fetch(url, {
